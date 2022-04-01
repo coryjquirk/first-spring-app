@@ -18,16 +18,18 @@ public class IndexController {
     @Autowired
     private UserDAO userDAO;
 
-
     @RequestMapping(value="/index", method = RequestMethod.GET)
     public ModelAndView index() throws Exception{
         ModelAndView response = new ModelAndView();
-        List<User> users = userDAO.findByFirstName("Eric");
-        for( User user : users ) {
+        List<User> allUsers = userDAO.findAll();
+
+        for( User user : allUsers ) {
             log.info(user.toString());
         }
         response.setViewName("index");
-        response.addObject("users", users);
+
+        response.addObject("users", allUsers);
+
         return response;
     }
 }
